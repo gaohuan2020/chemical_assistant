@@ -1,0 +1,35 @@
+# Gas phase physical constants
+constants:
+  # Universal gas constant in J/(mol·K)
+  gas_constant: 8.31446261815324
+  
+  # Conversion factor from AMU to kg/mol
+  amu_to_kg_mol: 1.0003234962e-3  # 1.66053907e-27 * 6.02214076e23
+  
+  # Standard conditions
+  standard_temperature: 298.15  # K
+  standard_pressure: 101325    # Pa 
+
+# Polynomial coefficients for specific heat capacity
+# cp°/R = a₁ + a₂T + a₃T² + a₄T³ + a₅T⁴
+cp_coefficients:
+  O:  # Atomic oxygen
+    - 3.025    # a₁
+    - 1.639e-3 # a₂
+    - -1.138e-6 # a₃
+    - 3.331e-10 # a₄
+    - -3.708e-14 # a₅
+  
+  O2:  # Molecular oxygen
+    - 3.784    # a₁
+    - -2.996e-3 # a₂
+    - 9.847e-6 # a₃
+    - -9.681e-9 # a₄
+    - 3.243e-12 # a₅
+  
+  OH:  # Hydroxyl radical
+    - 3.637    # a₁
+    - -1.794e-3 # a₂
+    - 3.707e-6 # a₃
+    - -3.142e-9 # a₄
+    - 9.758e-13 # a₅
