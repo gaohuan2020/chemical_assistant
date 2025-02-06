@@ -5,7 +5,7 @@ from .data_types import Species, ParticleType
 from . import thermodynamics
 
 
-class GasPhase:
+class GasPhaseSpecies:
     """Represents the gas phase (Sg) containing multiple species"""
 
     # Load constants from config file
@@ -18,6 +18,8 @@ class GasPhase:
         _STANDARD_TEMP = _constants['standard_temperature']
         _STANDARD_PRESSURE = _constants['standard_pressure']
         _CP_COEFFICIENTS = _config['cp_coefficients']
+        _FORMATION_ENTHALPIES = _config['formation_enthalpies']
+        _STANDARD_ENTROPIES = _config['standard_entropies']
 
     def __init__(self,
                  temperature: float = _STANDARD_TEMP,
@@ -266,14 +268,17 @@ class GasPhase:
         """
         if species_name not in self.species:
             raise KeyError(f"Species {species_name} not found")
-            
-        if species_name not in self._CP_COEFFICIENTS:
-            raise ValueError(f"No polynomial coefficients available for {species_name}")
-            
-        coefficients = self._CP_COEFFICIENTS[species_name]
-        return thermodynamics.calculate_standard_cp(coefficients, temperature, self.R)
 
-    def get_standard_enthalpy(self, species_name: str, temperature: float) -> float:
+        if species_name not in self._CP_COEFFICIENTS:
+            raise ValueError(
+                f"No polynomial coefficients available for {species_name}")
+
+        coefficients = self._CP_COEFFICIENTS[species_name]
+        return thermodynamics.calculate_standard_cp(coefficients, temperature,
+                                                    self.R)
+
+    def get_standard_enthalpy(self, species_name: str,
+                              temperature: float) -> float:
         """
         Calculate standard state enthalpy.
         
@@ -286,15 +291,20 @@ class GasPhase:
         """
         if species_name not in self.species:
             raise KeyError(f"Species {species_name} not found")
-            
-        if species_name not in self._CP_COEFFICIENTS:
-            raise ValueError(f"No polynomial coefficients available for {species_name}")
-            
-        coefficients = self._CP_COEFFICIENTS[species_name]
-        return thermodynamics.calculate_standard_enthalpy(
-            coefficients, self._STANDARD_TEMP, temperature, self.R)
 
-    def get_standard_entropy(self, species_name: str, temperature: float) -> float:
+        if species_name not in self._CP_COEFFICIENTS:
+            raise ValueError(
+                f"No polynomial coefficients available for {species_name}")
+
+        coefficients = self._CP_COEFFICIENTS[species_name]
+        H_298 = self._FORMATION_ENTHALPIES[species_name][
+            'H_298'] * 1000  # Convert kJ to J
+
+        return thermodynamics.calculate_standard_enthalpy(
+            coefficients, temperature, self.R, H_298)
+
+    def get_standard_entropy(self, species_name: str,
+                             temperature: float) -> float:
         """
         Calculate standard state entropy.
         
@@ -307,10 +317,13 @@ class GasPhase:
         """
         if species_name not in self.species:
             raise KeyError(f"Species {species_name} not found")
-            
+
         if species_name not in self._CP_COEFFICIENTS:
-            raise ValueError(f"No polynomial coefficients available for {species_name}")
-            
+            raise ValueError(
+                f"No polynomial coefficients available for {species_name}")
+
         coefficients = self._CP_COEFFICIENTS[species_name]
+        S_298 = self._STANDARD_ENTROPIES[species_name]['S_298']
+
         return thermodynamics.calculate_standard_entropy(
-            coefficients, self._STANDARD_TEMP, temperature, self.R)
+            coefficients, temperature, self.R, S_298)

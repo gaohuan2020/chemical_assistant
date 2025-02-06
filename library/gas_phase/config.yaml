@@ -33,3 +33,21 @@ cp_coefficients:
     - 3.707e-6 # a₃
     - -3.142e-9 # a₄
     - 9.758e-13 # a₅
+
+# Add to existing config:
+formation_enthalpies:
+  O:
+    H_298: 249.17  # Standard heat of formation at 298K in kJ/mol
+  O2:
+    H_298: 0.0
+  OH:
+    H_298: 39.0
+
+# Add to existing config:
+standard_entropies:
+  O:
+    S_298: 161.06  # Standard entropy at 298K in J/(mol·K)
+  O2:
+    S_298: 205.15
+  OH:
+    S_298: 183.74
