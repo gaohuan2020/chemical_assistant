@@ -2,29 +2,48 @@
 
 ## Project Overview
 
-This is a chemical reaction modeling assistant tool that consists of two main components:
+This is a chemical reaction modeling assistant tool that builds upon and extends the ChemPy library. It provides enhanced functionality for chemical reaction modeling and analysis.
 
-### 1. Chemical Library
+### Core Components
 
-A computational library that provides:
-- Chemical species data calculation
-- Chemical source terms computation
-- Chemical reaction kinetics processing
+The project consists of several key modules:
 
-### 2. Chemical Agent
+1. **Chemistry Module** (`library/chemistry.py`)
+   - Core chemical calculations and data handling
+   - Extension of ChemPy's base functionality
 
-An interactive modeling assistant that features:
-- Natural language interface for chemical reaction modeling
-- Assistance with reaction parameter configuration
-- Modeling guidance and recommendations
+2. **Reaction System** (`library/reactionsystem.py`)
+   - Handles chemical reaction systems
+   - Based on ChemPy's reaction system implementation
+   - Additional features for reaction modeling
 
-## Usage
+3. **Equilibria Module** (`library/equilibria.py`)
+   - Chemical equilibrium calculations
+   - Enhanced equilibrium solving capabilities
+   - Integration with ChemPy's equilibria system
 
-[To be added: usage instructions and examples]
+4. **Equation System** (`library/_eqsys.py`)
+   - Low-level equation system solver
+   - Mathematical backbone for chemical calculations
 
 ## Dependencies
 
-[To be added: project dependencies]
+Required packages:
+- NumPy
+- SciPy
+
+## Project Structure
+
+chemical_assistant/
+├── library/
+│ ├── chemistry.py # Core chemical functionality
+│ ├── equilibria.py # Equilibrium calculations
+│ ├── reactionsystem.py # Reaction system handling
+│ └── eqsys.py # Equation system solver
+└── tests/
+## Usage
+
+Basic example:
 
 ## License
 
