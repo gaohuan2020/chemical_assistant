@@ -18,7 +18,6 @@ build/
 
 # IDE 配置文件
 .idea/
-.vscode/
 *.swp
 *.swo
 .DS_Store
